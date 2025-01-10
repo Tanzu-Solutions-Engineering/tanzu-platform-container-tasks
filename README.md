@@ -34,4 +34,5 @@ kubectl edit containerappbuildplans simple.tanzu.vmware.com
 - name: <name-of-task>
   containerTask:
     image: <full-path-to-image-in-regsitry>
+    command: [] #some command to run
 ```
