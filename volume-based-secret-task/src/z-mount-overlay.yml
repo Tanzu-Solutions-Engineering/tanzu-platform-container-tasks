@@ -1,0 +1,41 @@
+#@ load("@ytt:overlay", "overlay")
+#@ load("@ytt:data", "data")
+
+
+#@overlay/match by=overlay.subset({"apiVersion": "apps/v1", "kind": "Deployment"})
+---
+spec:
+  template:
+    spec:
+      #@overlay/match missing_ok=True
+      volumes:
+      #@ for volume in data.values.ext_mount_secret.volumes:
+      #@overlay/match by="name", missing_ok=True
+      #@overlay/replace or_add=True
+      - name: #@ volume.name
+        secret:
+          secretName: #@ volume.secret
+          items:
+          - key: #@ volume.key
+            path: #@ volume.key
+      #@ end
+      containers:
+        #@overlay/match by=overlay.subset({"name": "main"})
+        -
+          #@overlay/match missing_ok=True
+          env:
+          #@ for volume in data.values.ext_mount_secret.volumes:
+          #@overlay/match by="name", missing_ok=True
+          #@overlay/remove
+          - name: #@ volume.name
+          #@ end
+
+          #@overlay/match missing_ok=True
+          volumeMounts:
+          #@ for volume in data.values.ext_mount_secret.volumes:
+          #@overlay/match by="name", missing_ok=True
+          #@overlay/replace or_add=True
+          - name: #@ volume.name
+            readOnly: true
+            mountPath: #@ volume.path
+          #@ end
