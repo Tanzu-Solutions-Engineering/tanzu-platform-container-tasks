@@ -5,7 +5,7 @@ This containertask adds the ability to mount secrets as volumes in the generated
 
 ## Usage
 
-Follow the general install instructions [here](../README.md#installing-a-container-task) for installing containertasks into the buildplan. The Image that will be used in this process is `ghcr.io/tanzu-solutions-engineering/volume-mount-task`
+Follow the general install instructions [here](../README.md#installing-a-container-task) for installing containertasks into the buildplan. The Image that will be used in this process is `ghcr.io/tanzu-solutions-engineering/volume-mount-task`. This task need to be added after `namedTask: kubernetes-deployment.tanzu.vmware.com` and before `namedTask: kubernetes-carvel-package.tanzu.vmware.com`
 
 Once the containertask is added to the build plan follow the below steps to use with your containerapp.
 
