@@ -28,7 +28,7 @@ To add a container task add the following yaml to either an existing runtime or 
 kubectl edit containerappbuildplans simple.tanzu.vmware.com
 ```
 
-2. add the below yaml with the correct replacements in the existing runtime or a new runtime. If using a task from this repo, the task specific docs should have the details on the image path that should be used. 
+2. add the below yaml with the correct replacements in the existing runtime or a new runtime. If using a task from this repo, the task specific docs should have the details on the image path that should be used. This will go into the `spec.runtimes[0].steps` section of the speciifc runtime.
 
 ```yaml
 - name: <name-of-task>
